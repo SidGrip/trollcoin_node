@@ -1,5 +1,9 @@
 # Trollcoin-Node
 <a href="https://www.vultr.com/?ref=7390666" rel="nofollow">Believe Me, I have Tried Everything. Click Here for Vultr</a>
+<br>
+<br>
+https://github.com/TrollCoin2/TrollCoin-2.0
+<br>
 ## VPS Requirments
 Ubuntu 16.04 x64 - 1CPU - 1GIG Ram - 25GB SSD - $5/mo
 - Enable IPv6 
