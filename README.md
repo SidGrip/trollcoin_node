@@ -24,7 +24,7 @@ Will give you the optoin to download bootstrap
 You can Start, Stop and Check the status of your Trollcoin nodes.
 ```
 =======================================================================================================
-Trollcoin Node is up and running listening on port 15000.
+Trollcoin Node is up and running listening on port 15000
 Configuration file is: /root/.trollcoin/trollcoin.conf
 Start: systemctl start Trollcoin.service
 Stop: systemctl stop Trollcoin.service
