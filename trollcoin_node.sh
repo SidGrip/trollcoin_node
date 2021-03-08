@@ -225,7 +225,7 @@ elif [ ! -f "$USERDIR/$TROLL_CONFIGFOLDER/bootstrap.dat && -a -f $USERDIR/$TROLL
 echo "Trollcoin Bootstrap has already been removed"
 TROLL='0'
 fi
-if [[ -z $TROLL; then
+if [[ -z $TROLL ]]; then
 echo "Trollcoin is still importing bootstraps"
  else
 echo "Disabling Bootstrap systemctl service"
