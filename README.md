@@ -15,11 +15,11 @@ Then run ``` bash trollcoin_node.sh ```
 
 You can Start, Stop and Check the status of your Trollcoin nodes.
 ```
-=======================================================================================================================
+=======================================================================================================
 Trollcoin Node is up and running listening on port 8773.
 Configuration file is: /root/.trollcoin/trollcoin.conf
 Start: systemctl start Trollcoin.service
 Stop: systemctl stop Trollcoin.service
 Please check Trollcoin daemon is running with the following command: systemctl status Trollcoin.service
-=======================================================================================================================
+========================================================================================================
 ```
