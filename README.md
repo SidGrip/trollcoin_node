@@ -10,8 +10,7 @@ Copy & paste into terminal window
 ```
 wget -q https://raw.githubusercontent.com/SidGrip/trollcoin_node/master/trollcoin_node.sh
 ```
-<br>
-Then run ``` bash trollcoin_node.sh``` 
+Then run ``` bash trollcoin_node.sh ``` 
 <br>
 
 You can Start, Stop and Check the status of your Trollcoin nodes.
