@@ -217,17 +217,9 @@ date +%d/%m/%Y%t%H:%M:%S
 #Checking for Bootstrap
 if [ -f "$USERDIR/$TROLL_CONFIGFOLDER/bootstrap.dat" ]; then
 echo "Trollcoin still importing bootstrap"
-elif [ -f "$USERDIR/$TROLL_CONFIGFOLDER/bootstrap.dat.old" ]; then
+else [ -f "$USERDIR/$TROLL_CONFIGFOLDER/bootstrap.dat.old" ]
 rm $USERDIR/$TROLL_CONFIGFOLDER/bootstrap.dat.old
 echo "Deleting Trollcoin Bootstrap"
-TROLL='0'
-elif [ ! -f "$USERDIR/$TROLL_CONFIGFOLDER/bootstrap.dat && -a -f $USERDIR/$TROLL_CONFIGFOLDER/bootstrap.dat.old" ]; then
-echo "Trollcoin Bootstrap has already been removed"
-TROLL='0'
-fi
-if [[ -z $TROLL ]]; then
-echo "Trollcoin is still importing bootstraps"
- else
 echo "Disabling Bootstrap systemctl service"
 systemctl disable bootstrap.service
 systemctl daemon-reload
