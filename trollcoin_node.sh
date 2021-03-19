@@ -119,7 +119,6 @@ echo -e "Creating $TROLL_COIN_NAME config file"
 maxconnections=30
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
-rpcallowip=127.0.0.1
 rpcport=$TROLL_RPC_PORT
 port=$TROLL_COIN_PORT
 gen=0
