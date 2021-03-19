@@ -17,7 +17,7 @@ wget -q https://raw.githubusercontent.com/SidGrip/trollcoin_node/master/trollcoi
 Then run ``` bash trollcoin_node.sh ``` 
 <br>
 <br>
-Will give you the optoin to download bootstrap
+Will give you the option to download bootstrap
 <br>
 <br>
 ***
