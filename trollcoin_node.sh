@@ -4,7 +4,6 @@ USER=$(whoami)
 USERDIR=$(eval echo ~$user)
 STRAP='bootstrap.dat'
 COIN_PATH='/usr/local/bin'
-PEERS='peers.txt'
 
 #TrollCoin
 TROLL_DAEMON='https://github.com/SidGrip/trollcoin_node/releases/download/v2.1/trollcoind'
@@ -62,25 +61,47 @@ clear
 
 function swap() {
 #checking for swapfile
-if [ $(free | awk '/^Swap:/ {exit !$2}') ] || [ ! -f "/var/mnode_swap.img" ];then
+if free | awk '/^Swap:/ {exit !$2}'; then
+    echo "Swapfile already exist"
+sleep 2
+clear
+else	
     echo "Creating Swap"
-    rm -f /var/mnode_swap.img
-    dd if=/dev/zero of=/var/mnode_swap.img bs=1024k count=4000
-    chmod 0600 /var/mnode_swap.img
-    mkswap /var/mnode_swap.img
-    swapon /var/mnode_swap.img
-    echo '/var/mnode_swap.img none swap sw 0 0' | tee -a /etc/fstab
+    rm -f /var/troll_swap.img
+    dd if=/dev/zero of=/var/troll_swap.img bs=1024k count=500
+    chmod 0600 /var/troll_swap.img
+    mkswap /var/troll_swap.img
+    swapon /var/troll_swap.img
+    echo '/var/troll_swap.img none swap sw 0 0' | tee -a /etc/fstab
     echo 'vm.swappiness=10' | tee -a /etc/sysctl.conf               
     echo 'vm.vfs_cache_pressure=50' | tee -a /etc/sysctl.conf
-clear	
-else
-    echo "Swapfile created"
 fi
+clear
 }
 
-
 function troll_install()  {
-TROLL_PEERS=$(curl -s$ $FTP/$TROLL_COIN_NAME/$PEERS)
+#check for external ip & select correct nodes
+IP4=$(ifconfig  | grep 'inet addr:' | grep -v '127.0.0.1' | awk -F: '{print $2}' | awk '{print $1}' | head -1)
+
+IP6=$(/sbin/ip -6 addr | grep inet6 | awk -F '[ \t]+|/' '{print $3}' | grep -v ^::1 | grep -v ^fe80)
+
+if [[ -n $IP4 ]] && [[ -n $IP6 ]]; then 
+echo "Both IPv4 - $IP4 & Ipv6 - $IP6"
+echo "Address's detected, Will setup config with both Nodes"
+PEERS=$(curl -s$ $FTP/$TROLL_COIN_NAME/{seed_ipv6.txt,seed_ipv4.txt})
+
+elif [[ $IP4 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+echo "$IP IPv4"
+PEERS=$(curl -s$ $FTP/$TROLL_COIN_NAME/seed_ipv4.txt)
+
+elif [[ $IP6 =~ "${1#*:[0-9a-fA-F]}" ]]; then
+echo "$IP IPv6"
+PEERS=$(curl -s$ $FTP/$TROLL_COIN_NAME/seed_ipv6.txt)
+
+else
+echo No IP Found
+fi
+
 clear
 
 #Setup Firewall
@@ -95,7 +116,7 @@ echo -e "Creating $TROLL_COIN_NAME config file"
   RPCUSER=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w10 | head -n1)
   RPCPASSWORD=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w22 | head -n1)
   cat << EOF > $USERDIR/$TROLL_CONFIGFOLDER/$TROLL_CONFIG_FILE
-maxconnections=100
+maxconnections=30
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
 rpcallowip=127.0.0.1
@@ -105,8 +126,7 @@ gen=0
 listen=1
 daemon=1
 server=1
-txindex=1
-$TROLL_PEERS
+$PEERS
 EOF
 
 #Downloading Bootstrap
@@ -141,9 +161,9 @@ while true; do
         * ) echo "Please answer yes or no.";;
     esac
 done
-
+clear
 #Download precompiled daemon
-  echo -e "Installing ${YELLOW}$TROLL_COIN_NAME${NC}."
+  echo -e "Installing ${YELLOW}$TROLL_COIN_NAME${WHITE} Daemon${NC}."
  wget --progress=bar:force -O $COIN_PATH/$TROLL_COIN_DAEMON $TROLL_DAEMON 2>&1 | progressfilt;
  sleep 2
  chmod +x $COIN_PATH/$TROLL_COIN_DAEMON
@@ -201,8 +221,7 @@ echo -e "=======================================================================
 echo -e "================================================================================================================================"
 echo -e "${YELLOW}===============================================   ${WHITE}Finishing up Please Wait${NC}   ${YELLOW}===================================================${NC}"
 }
-
-function bootstrap_check() {
+function bootstrap_script() {
 if [ -f "$USERDIR/$TROLL_CONFIGFOLDER/$STRAP" ]; then
 cat << 'EOT' > $USERDIR/bootstrap.sh
 #!/bin/bash
@@ -230,17 +249,17 @@ fi
 EOT
 
 chmod u+x bootstrap.sh
-else
-echo "Bootstraps not downloaded, Removal script not setup"
+sleep 4
+else 
+exit
 fi
-
 }
 
-function bootstrap_service() {
-if [ -f "/etc/systemd/system/bootstrap.service" ]; then
-echo -e "Bootstrap Removal Service Already Running"
+function bootstrap_check() {
+if [ ! -f "$USERDIR/$TROLL_CONFIGFOLDER/$STRAP" ]; then
+echo "BootStrap Not downloaded Removel Script will not be installed"
 exit
-else
+elif [ ! -f "/etc/systemd/system/bootstrap.service" ]; then
 cat << EOF > /etc/systemd/system/bootstrap.service
 [Unit]
 Description=Check and remove bootstraps when done
@@ -254,19 +273,21 @@ ExecStart=$USERDIR/bootstrap.sh
 [Install]
 WantedBy=multi-user.target
 EOF
-fi
 
 systemctl daemon-reload
 sleep 4
 systemctl start bootstrap.service
 systemctl enable bootstrap.service >/dev/null 2>&1
+else
+echo -e "Bootstrap Removal Service Already Running"
+fi
 }
 
 function setup_node() {
   troll_install
   important_information
+  bootstrap_script
   bootstrap_check
-  bootstrap_service
 }
 
 ##### Main #####
