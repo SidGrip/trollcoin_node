@@ -116,7 +116,7 @@ echo -e "Creating $TROLL_COIN_NAME config file"
   RPCUSER=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w10 | head -n1)
   RPCPASSWORD=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w22 | head -n1)
   cat << EOF > $USERDIR/$TROLL_CONFIGFOLDER/$TROLL_CONFIG_FILE
-maxconnections=30
+maxconnections=12
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
 rpcport=$TROLL_RPC_PORT
