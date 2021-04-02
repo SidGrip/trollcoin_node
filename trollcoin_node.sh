@@ -121,10 +121,6 @@ rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
 rpcport=$TROLL_RPC_PORT
 port=$TROLL_COIN_PORT
-gen=0
-listen=1
-daemon=1
-server=1
 $PEERS
 EOF
 
