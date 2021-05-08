@@ -88,15 +88,15 @@ IP6=$(/sbin/ip -6 addr | grep inet6 | awk -F '[ \t]+|/' '{print $3}' | grep -v ^
 if [[ -n $IP4 ]] && [[ -n $IP6 ]]; then 
 echo "Both IPv4 - $IP4 & Ipv6 - $IP6"
 echo "Address's detected, Will setup config with both Nodes"
-PEERS=$(curl -s$ $FTP/$TROLL_COIN_NAME/{seed_ipv6.txt,seed_ipv4.txt})
+PEERS=$(curl -s$ $FTP/$TROLL_CONFIGFOLDER/{seed_ipv6.txt,seed_ipv4.txt})
 
 elif [[ $IP4 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
 echo "$IP IPv4"
-PEERS=$(curl -s$ $FTP/$TROLL_COIN_NAME/seed_ipv4.txt)
+PEERS=$(curl -s$ $FTP/$TROLL_CONFIGFOLDER/seed_ipv4.txt)
 
 elif [[ $IP6 =~ "${1#*:[0-9a-fA-F]}" ]]; then
 echo "$IP IPv6"
-PEERS=$(curl -s$ $FTP/$TROLL_COIN_NAME/seed_ipv6.txt)
+PEERS=$(curl -s$ $FTP/$TROLL_CONFIGFOLDER/seed_ipv6.txt)
 
 else
 echo No IP Found
