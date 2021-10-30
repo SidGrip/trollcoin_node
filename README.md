@@ -6,7 +6,8 @@ https://github.com/TrollCoin2/TrollCoin-2.0
 <br>
 ## VPS Requirments
 Ubuntu 16.04 x64 - 1CPU - 1GIG Ram - 25GB SSD - $5/mo
-- Enable IPv6 
+<br>
+<strike>- Enable IPv6</strike> 
 ***
 #### To install A Trollcoin Node.
 
