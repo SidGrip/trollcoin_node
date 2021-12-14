@@ -1,5 +1,5 @@
 #!/bin/bash
-FTP='ftp://78.141.243.202'
+FTP='https://bootstrap.specminer.com'
 USER=$(whoami)
 USERDIR=$(eval echo ~$user)
 STRAP='bootstrap.dat'
