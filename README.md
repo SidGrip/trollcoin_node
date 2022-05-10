@@ -1,3 +1,22 @@
+#### Install A Trollcoin QT Wallet on Ubuntu 14.04.06.
+
+Copy & paste into terminal window
+```
+wget -q https://raw.githubusercontent.com/SidGrip/trollcoin_node/master/TrollCoin-2.1_Ubuntu-14.04.6.sh
+```
+Then run ``` bash TrollCoin-2.1_Ubuntu-14.04.6.sh ``` 
+<br>
+Everything is run as User - enter sudo password when prompted
+<br>
+<br>
+-- Will compile the wallet on your machine
+<br>
+-- Will give you an option to download a bootstrap that is a week behind
+<br>
+-- Will autogen a config with random user/pass and add active nodes
+<br>
+<br>
+
 # Trollcoin-Node
 <a href="https://www.vultr.com/?ref=7390666" rel="nofollow">Believe Me, I have Tried Everything. Click Here for Vultr</a>
 <br>
