@@ -9,7 +9,7 @@ Then run ``` bash TrollCoin-2.1_Ubuntu-14.04.6.sh ```
 Everything is run as User - enter sudo password when prompted
 <br>
 <br>
--- Will compile the wallet on your machine
+-- Will compile the QT wallet on your machine
 <br>
 -- Will give you an option to download a bootstrap that is a week behind
 <br>
