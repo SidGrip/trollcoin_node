@@ -1,4 +1,4 @@
-## Install A Trollcoin QT Wallet on Ubuntu 14.04.06.
+## Install A Trollcoin QT Wallet on Ubuntu 14.04.06
 
 Copy & paste into terminal window
 ```
