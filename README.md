@@ -15,6 +15,8 @@ Everything is run as User - enter sudo password when prompted
 <br>
 -- Will autogen a config with random user/pass and add active nodes
 <br>
+-- Will place a shortcut in your desktop applicatoins for launching the Qt wallet
+<br>
 <br>
 ***
 ### Trollcoin-Daemon running on ubunt 16
